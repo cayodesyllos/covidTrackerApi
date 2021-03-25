@@ -7,7 +7,7 @@ class UserController {
     try {
       await User.create(data);
 
-      const token = await auth.attempt(email, password);
+      const token = await auth.attempt(data.email, data.password);
 
       return token;
     } catch (error) {
