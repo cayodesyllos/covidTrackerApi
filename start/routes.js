@@ -5,4 +5,8 @@ const Route = use("Route");
 Route.post("/user", "UserController.store");
 Route.post("/login", "SessionController.authenticate");
 
-Route.group(() => {}).middleware(["auth"]);
+Route.group(() => {
+  Route.get("/locations", "LocationController.index");
+  Route.post("/location", "LocationController.store");
+  Route.post("/checkin", "CheckinController.store");
+}).middleware(["auth"]);

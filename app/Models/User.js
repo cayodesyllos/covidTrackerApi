@@ -14,6 +14,13 @@ class User extends Model {
     return ["password"];
   }
 
+  checkins() {
+    return this.hasMany("App/Models/Checkin");
+  }
+  locations() {
+    return this.hasMany("App/Models/Location");
+  }
+
   static boot() {
     super.boot();
     this.addHook("beforeCreate", async (userInstance) => {
