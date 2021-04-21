@@ -10,4 +10,5 @@ Route.group(() => {
   Route.post("/location", "LocationController.store");
   Route.post("/checkin", "CheckinController.store");
   Route.get("/checkins", "CheckinController.index");
+  Route.put("/user", "UserController.update");
 }).middleware(["auth"]);
