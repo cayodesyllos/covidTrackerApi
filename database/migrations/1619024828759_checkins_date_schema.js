@@ -3,19 +3,18 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use("Schema");
 
-class CheckinStatusSchema extends Schema {
+class CheckinsDateSchema extends Schema {
   up() {
     this.table("checkins", (table) => {
-      table.string("flag").defaultTo("green");
+      table.date("date");
     });
   }
 
   down() {
     this.table("checkins", (table) => {
-      table.dropColumn("infected");
-      table.dropColumn("flag");
+      table.dropColumn("date");
     });
   }
 }
 
-module.exports = CheckinStatusSchema;
+module.exports = CheckinsDateSchema;
