@@ -12,20 +12,22 @@ class CheckinController {
         );
       }
 
+      const token = request.input("token");
+      const location = await Location.findByOrFail("token", token);
+
+      const location_id = location.id;
+
       const date = new Date().toISOString().split("T")[0];
       const duplicateCheckIn = await auth.user
         .checkins()
         .where("date", date)
+        .where("location_id", location_id)
         .getCount();
 
       if (parseInt(duplicateCheckIn) !== 0) {
         throw new Error("You have already checkin here today");
       }
 
-      const token = request.input("token");
-      const location = await Location.findByOrFail("token", token);
-
-      const location_id = location.id;
       const user_id = auth.user.id;
 
       const checkin = await Checkin.create({ location_id, user_id, date });
