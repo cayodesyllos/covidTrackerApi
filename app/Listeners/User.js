@@ -1,5 +1,6 @@
 const User = (exports = module.exports = {});
 const Checkin = use("App/Models/Checkin");
+const Notification = use("App/Models/Notification");
 const moment = require("moment-timezone");
 
 User.updateStatus = async (id) => {
@@ -24,8 +25,21 @@ User.updateStatus = async (id) => {
 const updateCheckins = async (checkins, id) => {
   await Promise.all(
     checkins.rows.map(async (checkin) => {
-      if (checkin.user_id != id) checkin.flag = "red";
-      await checkin.save();
+      if (checkin.user_id != id) {
+        await notify(
+          checkin.user_id,
+          checkin.id,
+          checkin.location_id,
+          checkin.flag
+        );
+        checkin.flag = "red";
+        await checkin.save();
+      }
     })
   );
+};
+
+const notify = async (user_id, checkin_id, location_id, flag) => {
+  const first_one = flag === "green";
+  await Notification.create({ user_id, checkin_id, location_id, first_one });
 };

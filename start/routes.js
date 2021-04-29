@@ -7,8 +7,10 @@ Route.post("/login", "SessionController.authenticate");
 
 Route.group(() => {
   Route.get("/locations", "LocationController.index");
+  Route.get("/notifications", "NotificationController.index");
   Route.post("/location", "LocationController.store");
   Route.post("/checkin", "CheckinController.store");
   Route.get("/checkins", "CheckinController.index");
   Route.put("/user", "UserController.update");
+  Route.get("/user", "UserController.index");
 }).middleware(["auth"]);

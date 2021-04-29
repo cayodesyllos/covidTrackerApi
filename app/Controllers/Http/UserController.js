@@ -36,6 +36,16 @@ class UserController {
       });
     }
   }
+
+  async index({ response, auth }) {
+    try {
+      return auth.user;
+    } catch (error) {
+      return response.status(400).send({
+        error: { message: error.message },
+      });
+    }
+  }
 }
 
 module.exports = UserController;
