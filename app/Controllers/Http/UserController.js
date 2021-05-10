@@ -19,14 +19,19 @@ class UserController {
   }
 
   async update({ request, response, auth }) {
-    const { infected } = request.only(["infected"]);
+    const { infected, fcm_token } = request.only(["infected", "fcm_token"]);
 
     try {
-      auth.user.infected = infected;
-      await auth.user.save();
+      if (fcm_token) {
+        auth.user.fcm_token = fcm_token;
+        await auth.user.save();
+      } else {
+        auth.user.infected = infected;
+        await auth.user.save();
 
-      if (infected) {
-        Event.fire("user::updateStatus", auth.user.id);
+        if (infected) {
+          Event.fire("user::updateStatus", auth.user.id);
+        }
       }
 
       return;

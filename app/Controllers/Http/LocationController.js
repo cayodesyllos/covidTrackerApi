@@ -1,6 +1,5 @@
 "use strict";
 const Location = use("App/Models/Location");
-const User = use("App/Models/User");
 const crypto = require("crypto");
 
 class LocationController {
@@ -13,6 +12,7 @@ class LocationController {
 
       return location;
     } catch (error) {
+      console.log(error.message);
       return response.status(400).send({
         error: { message: error.message },
       });
