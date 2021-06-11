@@ -4,7 +4,7 @@ const Event = use("Event");
 
 class UserController {
   async store({ request, response, auth }) {
-    const data = request.only(["email", "password"]);
+    const data = request.only(["email", "password", "sex", "birthday"]);
     try {
       await User.create(data);
 
@@ -19,10 +19,17 @@ class UserController {
   }
 
   async update({ request, response, auth }) {
-    const { infected, fcm_token } = request.only(["infected", "fcm_token"]);
+    const { infected, fcm_token, agreed } = request.only([
+      "infected",
+      "fcm_token",
+      "agreed",
+    ]);
 
     try {
-      if (fcm_token) {
+      if (agreed != null) {
+        auth.user.agreed = agreed;
+        await auth.user.save();
+      } else if (fcm_token) {
         auth.user.fcm_token = fcm_token;
         await auth.user.save();
       } else {
