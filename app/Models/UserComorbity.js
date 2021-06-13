@@ -5,6 +5,10 @@ const Model = use("Model");
 const moment = require("moment-timezone");
 
 class UserComorbity extends Model {
+  static get hidden() {
+    return ["id", "created_at", "updated_at", "user_id"];
+  }
+
   static formatDates(field, value) {
     return moment(value).tz("America/Sao_Paulo").format();
   }

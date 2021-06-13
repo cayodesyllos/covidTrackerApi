@@ -9,6 +9,10 @@ class UserVacine extends Model {
     return moment(value).tz("America/Sao_Paulo").format();
   }
 
+  static get hidden() {
+    return ["id", "created_at", "updated_at", "user_id"];
+  }
+
   user() {
     return this.belongsTo("App/Models/User");
   }
