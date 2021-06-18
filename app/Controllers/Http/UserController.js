@@ -1,5 +1,6 @@
 "use strict";
 const User = use("App/Models/User");
+const UserInfection = use("App/Models/UserInfection");
 const Event = use("Event");
 
 class UserController {
@@ -34,11 +35,13 @@ class UserController {
         await auth.user.save();
       } else {
         auth.user.infected = infected;
-        await auth.user.save();
 
         if (infected) {
+          const { id } = await UserInfection.create({ user_id: auth.user.id });
+          auth.user.last_infection_id = id;
           Event.fire("user::updateStatus", auth.user.id);
         }
+        await auth.user.save();
       }
 
       return;

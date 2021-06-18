@@ -19,4 +19,5 @@ Route.group(() => {
   Route.get("/comorbity", "UserComorbityController.index");
   Route.put("/vacine", "UserVacineController.update");
   Route.put("/comorbity", "UserComorbityController.update");
+  Route.put("/infection", "UserInfectionController.update");
 }).middleware(["auth"]);
