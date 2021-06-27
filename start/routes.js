@@ -15,6 +15,7 @@ Route.group(() => {
   Route.get("/user", "UserController.index");
   Route.post("/vacine", "UserVacineController.store");
   Route.post("/comorbity", "UserComorbityController.store");
+  Route.post("/longterm", "UserLongTermSymptomsController.store");
   Route.get("/vacine", "UserVacineController.index");
   Route.get("/comorbity", "UserComorbityController.index");
   Route.put("/vacine", "UserVacineController.update");

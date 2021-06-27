@@ -10,7 +10,7 @@ class UserInfection extends Model {
   }
 
   static get hidden() {
-    return ["id", "created_at", "updated_at", "user_id"];
+    return ["updated_at", "user_id"];
   }
 
   user() {

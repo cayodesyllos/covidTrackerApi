@@ -20,6 +20,9 @@ class User extends Model {
   locations() {
     return this.hasMany("App/Models/Location");
   }
+  infections() {
+    return this.hasMany("App/Models/UserInfection");
+  }
 
   static boot() {
     super.boot();

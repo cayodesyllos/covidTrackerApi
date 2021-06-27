@@ -54,7 +54,14 @@ class UserController {
 
   async index({ response, auth }) {
     try {
-      return auth.user;
+      const user = auth.user;
+      const infections = await user
+        .infections()
+        .where("long_term_status", null)
+        .orderBy("created_at", "asc")
+        .fetch();
+      user.infection = infections.rows[0];
+      return user;
     } catch (error) {
       return response.status(400).send({
         error: { message: error.message },
